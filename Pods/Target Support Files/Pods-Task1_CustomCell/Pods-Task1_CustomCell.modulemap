@@ -1,0 +1,6 @@
+framework module Pods_Task1_CustomCell {
+  umbrella header "Pods-Task1_CustomCell-umbrella.h"
+
+  export *
+  module * { export * }
+}
