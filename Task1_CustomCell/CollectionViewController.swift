@@ -27,6 +27,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         collectonView.delegate = self
         collectonView.isPagingEnabled = false
         collectonView.dragDelegate = self
+        collectonView.dragInteractionEnabled = true
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barButtonItemSwitch)
         let dropInteractionForLabel = UIDropInteraction(delegate: self)
         let dropInteractionForImage = UIDropInteraction(delegate: self)
