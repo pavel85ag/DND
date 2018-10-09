@@ -3,8 +3,8 @@
 import UIKit
 
 class LargeImageViewController: UIViewController, UIScrollViewDelegate {
-    var tempURL : URL?
     
+    var tempURL : URL?
     var imageURL: URL? {
         didSet {
             largeImageView.image = nil
@@ -12,7 +12,6 @@ class LargeImageViewController: UIViewController, UIScrollViewDelegate {
                 fetchImage(to: self)
             }
         }
-        
     }
     
     @IBOutlet weak var largeImageView: UIImageView!
@@ -39,6 +38,5 @@ class LargeImageViewController: UIViewController, UIScrollViewDelegate {
     func viewForZooming(in scrollView: UIScrollView) -> UIView? {
         return largeImageView
     }
-
     
 }

@@ -10,25 +10,20 @@ import UIKit
 
 class PhotosViewController: UIViewController {
     
-    @IBOutlet weak var imageScrollView: UIScrollView!
-    
     var photoURLs: [URL]!
+    
+    @IBOutlet weak var imageScrollView: UIScrollView!
     
     override func viewWillAppear(_ animated: Bool) {
         self.navigationController?.setNavigationBarHidden(false, animated: true)
-
-        
-        
         for url in self.photoURLs {
             let urlRequest = URLRequest(url: url)
             NSURLConnection.sendAsynchronousRequest(urlRequest, queue: OperationQueue.main, completionHandler: { (response, data, error) -> Void in
                 let image = UIImage(data: data!)
                 self.addImageToView(image!)
             })
-
         }
     }
-    
     
     func addImageToView(_ image: UIImage) {
         let imageView: UIImageView = UIImageView(image: image)
@@ -42,5 +37,6 @@ class PhotosViewController: UIViewController {
         self.imageScrollView.contentSize = CGSize(width: 320, height: newHeight)
         self.imageScrollView.addSubview(imageView)
     }
+    
     
 }

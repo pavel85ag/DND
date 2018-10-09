@@ -23,7 +23,7 @@
                         <rect key="frame" x="10" y="80" width="34" height="30"/>
                         <state key="normal" title="Click"/>
                         <connections>
-                            <action selector="myCellButtonClick:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SNT-Xa-vI4"/>
+                            <action selector="cellButtonTap:" destination="KGk-i7-Jjw" eventType="touchUpInside" id="SNT-Xa-vI4"/>
                         </connections>
                     </button>
                     <imageView contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="fkZ-OX-jwB">

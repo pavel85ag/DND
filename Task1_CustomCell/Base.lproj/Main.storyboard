@@ -45,8 +45,8 @@
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yV5-Yf-KI8">
-                                <rect key="frame" x="90" y="557" width="63" height="30"/>
-                                <state key="normal" title="Show My"/>
+                                <rect key="frame" x="90" y="557" width="104" height="30"/>
+                                <state key="normal" title="Show My Table"/>
                                 <connections>
                                     <segue destination="HAt-8O-LrH" kind="show" identifier="SegueToMyCells" id="99a-3I-9Kq"/>
                                 </connections>

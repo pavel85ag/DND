@@ -10,14 +10,8 @@ import UIKit
 
 class CollectionViewCell: UICollectionViewCell {
     
-    @IBOutlet weak var collectionCellImageView: UIImageView!
-       
-    
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    
     var optionalImage: UIImage? {
         didSet {
-            
             collectionCellImageView.image = optionalImage
             if optionalImage == nil {
                 activityIndicator.startAnimating()
@@ -27,5 +21,7 @@ class CollectionViewCell: UICollectionViewCell {
         }
     }
     
+    @IBOutlet weak var collectionCellImageView: UIImageView!
+    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
 }
