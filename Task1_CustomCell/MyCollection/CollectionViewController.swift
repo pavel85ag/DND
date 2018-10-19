@@ -14,10 +14,12 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     @IBOutlet weak var largeImageView: UIImageView!
     @IBOutlet weak var labelForURL: UILabel!
-    @IBOutlet weak var collectonView: UICollectionView!
+    @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var favoritTabBarItem: UITabBarItem!
     
     lazy var rotationCounter = Float(1000)
     let barButtonItemSwitch = UISwitch()
+    
     static var cachedImages = [URL : UIImage]()
     
     override func viewDidLoad() {
@@ -28,11 +30,11 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
         largeImageView.isUserInteractionEnabled = true
         
-        collectonView.dataSource = self
-        collectonView.delegate = self
-        collectonView.isPagingEnabled = false
-        collectonView.dragDelegate = self
-        collectonView.dragInteractionEnabled = true
+        collectionView.dataSource = self
+        collectionView.delegate = self
+        collectionView.isPagingEnabled = false
+        collectionView.dragDelegate = self
+        collectionView.dragInteractionEnabled = true
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(customView: barButtonItemSwitch)
         
@@ -44,6 +46,12 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let rotationGesture = UIRotationGestureRecognizer(target: self, action: #selector(rotateElement))
         self.largeImageView.addGestureRecognizer(rotationGesture)
         rotationGesture.delegate = self
+        
+        let dTapGesture = UITapGestureRecognizer(target: self, action: #selector(addToFavorites))
+        dTapGesture.numberOfTapsRequired = 2
+        view.addGestureRecognizer(dTapGesture)
+        dTapGesture.delegate = self
+        
     }
     
     
@@ -70,15 +78,15 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        if let itemCell = collectonView.dequeueReusableCell(withReuseIdentifier: "customCVcell", for: indexPath) as? CollectionViewCell {
+        if let itemCell = collectionView.dequeueReusableCell(withReuseIdentifier: "customCVcell", for: indexPath) as? CollectionViewCell {
             let url = photoURLs[indexPath.row]
             var image: UIImage? = nil
             if let cachedImage = CollectionViewController.cachedImages[url] {
                 image = cachedImage
+                itemCell.optionalImage = image
             } else {
                 loadImageForCollection(url: url, for: indexPath, in: collectionView)
             }
-            itemCell.optionalImage = image
             
             return itemCell
         }
@@ -93,7 +101,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
         let indexPath = IndexPath(row: indexOfMajorCell(), section: 0)
-        collectonView.scrollToItem(at: indexPath, at: .left, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
@@ -103,14 +111,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         }
         
         let indexPath = IndexPath(row: indexOfMajorCell(), section: 0)
-        collectonView.scrollToItem(at: indexPath, at: .left, animated: true)
+        collectionView.scrollToItem(at: indexPath, at: .left, animated: true)
     }
     
     private func indexOfMajorCell() -> Int {
         
-        let collectionViewFlowLayout = self.collectonView.collectionViewLayout as! UICollectionViewFlowLayout
+        let collectionViewFlowLayout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         let itemWidth = collectionViewFlowLayout.itemSize.width
-        let proportionalOffset = collectonView.contentOffset.x / itemWidth
+        let proportionalOffset = collectionView.contentOffset.x / itemWidth
         let index = Int(round(proportionalOffset))
         let safeIndex = max(0, min(photoURLs.count - 1, index))
         
@@ -145,6 +153,32 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         }
     }
   
+ 
+//MARK: DoubleTap for Favorites method
+    
+    @objc func addToFavorites (recognizer: UIGestureRecognizer) {
+        
+        let location = recognizer.location(in: collectionView)
+        let indexPath = collectionView.indexPathForItem(at: location)
+        if let _ = indexPath {
+            collectionView.deselectItem(at: indexPath!, animated: true)
+            if let index = indexPath?.row {
+                let urlSet = favoritURL(smallImageURL: photoURLs[index], largeImageURL: largePhotoURLs[index])
+                favoritURLs.append(urlSet)
+                self.favoritTabBarItem.isEnabled = true
+                
+                UIView.animate(withDuration: 1.2) {
+                    self.favoritTabBarItem.isEnabled = false
+                }
+            }
+        }
+        for i in 0..<favoritURLs.count - 1 {
+            if favoritURLs[i].smallImageURL == favoritURLs[favoritURLs.count-1].smallImageURL{
+                favoritURLs.remove(at: i)
+                break
+            }
+        }
+    }
     
 }
 
@@ -168,7 +202,7 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
     }
     
     func dropInteraction(_ interaction: UIDropInteraction, canHandle session: UIDropSession) -> Bool {
-        return true
+        return session.canLoadObjects(ofClass: NSURL.self)
     }
     
     func dropInteraction(_ interaction: UIDropInteraction, sessionDidUpdate session: UIDropSession) -> UIDropProposal {

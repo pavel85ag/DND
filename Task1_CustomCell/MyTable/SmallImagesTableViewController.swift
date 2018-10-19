@@ -28,10 +28,10 @@ class SmallImagesTableViewController: UITableViewController, MyTableViewCellButt
         var image: UIImage? = nil
         if let cachedImage = SmallImagesTableViewController.cachedImages[url] {
             image = cachedImage
+            cell.optionalImage = image
         } else {
             loadImageForTable(url: url, for: indexPath, in: tableView)
         }
-        cell.optionalImage = image
         
         return cell
     }
