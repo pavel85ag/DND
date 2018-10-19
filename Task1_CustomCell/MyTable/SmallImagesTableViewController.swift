@@ -4,9 +4,12 @@ import FlickrKit
 
 class SmallImagesTableViewController: UITableViewController, MyTableViewCellButtonDelegate  {
     
+    private var tappedCellTag = Int()
+    static var cachedImages = [URL : UIImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         tableView.register(UINib(nibName: "MyTableViewCell", bundle: nil), forCellReuseIdentifier: "Ident")
     }
 
@@ -15,23 +18,26 @@ class SmallImagesTableViewController: UITableViewController, MyTableViewCellButt
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "Ident", for: indexPath) as! MyTableViewCell
         cell.MyCellLable.text = "Click to get URL"
         cell.tag = indexPath.row
         cell.delegateCellButtonTap = self
+        
         let url = photoURLs[indexPath.row]
         var image: UIImage? = nil
-        if let cachedImage = cachedImages[url] {
+        if let cachedImage = SmallImagesTableViewController.cachedImages[url] {
             image = cachedImage
         } else {
             loadImageForTable(url: url, for: indexPath, in: tableView)
         }
         cell.optionalImage = image
+        
         return cell
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return calculateRowHeight(forImageInRow: cachedImages[photoURLs[indexPath.row]])
+        return calculateRowHeight(forImageInRow: SmallImagesTableViewController.cachedImages[photoURLs[indexPath.row]])
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
