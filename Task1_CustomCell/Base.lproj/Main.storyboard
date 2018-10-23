@@ -337,8 +337,8 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dk7-qx-rVh">
-                                <rect key="frame" x="0.0" y="309" width="375" height="309"/>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dk7-qx-rVh">
+                                <rect key="frame" x="0.0" y="309" width="375" height="314"/>
                                 <color key="backgroundColor" red="0.89787137309250031" green="1" blue="0.96318287884671272" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             </imageView>
                             <tabBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7Y4-Vy-iyb">
@@ -351,6 +351,35 @@
                                     </tabBarItem>
                                 </items>
                             </tabBar>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="vce-7p-oaN">
+                                <rect key="frame" x="0.0" y="574" width="375" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="MAn-as-Ynw"/>
+                                    <barButtonItem style="plain" id="cgL-IF-Nuc">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="5v2-FR-VIO">
+                                            <rect key="frame" x="66.5" y="7" width="103" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Save to Library"/>
+                                            <connections>
+                                                <action selector="saveToLibrary:" destination="P0a-Kl-KIL" eventType="touchUpInside" id="qQU-uQ-n0n"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="BRa-C4-PZP"/>
+                                    <barButtonItem style="plain" id="jOO-oX-F0K">
+                                        <button key="customView" opaque="NO" contentMode="scaleToFill" misplaced="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" id="sLS-iU-jH8">
+                                            <rect key="frame" x="219.5" y="7" width="89" height="30"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                            <state key="normal" title="Open Library"/>
+                                            <connections>
+                                                <action selector="openLibrary:" destination="P0a-Kl-KIL" eventType="touchUpInside" id="gpd-5a-uzv"/>
+                                            </connections>
+                                        </button>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="03G-jf-kSG"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
@@ -368,7 +397,7 @@
                         <viewLayoutGuide key="safeArea" id="uME-Ne-jtB"/>
                     </view>
                     <toolbarItems/>
-                    <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="collectionView" destination="b98-G4-tv6" id="8jU-Ed-HqI"/>
                         <outlet property="favoritTabBarItem" destination="cWh-W4-k8p" id="nlC-ZU-HiF"/>

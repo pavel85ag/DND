@@ -9,7 +9,7 @@
 import UIKit
 
 
-class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIDropInteractionDelegate, UIGestureRecognizerDelegate {
+class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIDropInteractionDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     @IBOutlet weak var largeImageView: UIImageView!
@@ -17,6 +17,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var favoritTabBarItem: UITabBarItem!
     
+    let picker = UIImagePickerController()
     lazy var rotationCounter = Float(1000)
     let barButtonItemSwitch = UISwitch()
     
@@ -51,6 +52,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         dTapGesture.numberOfTapsRequired = 2
         view.addGestureRecognizer(dTapGesture)
         dTapGesture.delegate = self
+        
+        picker.delegate = self
         
     }
     
@@ -179,6 +182,41 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             }
         }
     }
+    
+    
+    //MARK: Adding to Library/loading from library
+    
+    
+    @IBAction func saveToLibrary(_ sender: Any) {
+        if let image = self.largeImageView.image {
+            
+            let alert = UIAlertController(title: "Saved", message: "Image is saved to library", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+        }
+    }
+    
+    
+    @IBAction func openLibrary(_ sender: Any) {
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(picker, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        largeImageView.image = chosenImage
+        dismiss(animated:true, completion: nil)
+    }
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
     
 }
 
