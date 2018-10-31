@@ -3,18 +3,33 @@
 import Foundation
 import UIKit
 import FlickrKit
+import Photos
+import CoreData
 
+
+// MARK: - VARs
 
 let defaults = UserDefaults.standard
 
 var photoURLs: [URL]!
 var largePhotoURLs: [URL]!
 
-struct favoritURL : Codable {
+struct FavoritURL : Codable {
     var smallImageURL : URL
     var largeImageURL : URL
 }
-var favoritURLs = [favoritURL]()
+
+struct ImageWithGeolocation {
+    var image : UIImage
+    var coordinate : CLLocationCoordinate2D
+}
+var currentImageWithGeo = ImageWithGeolocation(image: UIImage(named: "no_image")!, coordinate: CLLocationCoordinate2D())
+
+var favoritURLs = [FavoritURL]()
+var itemsToSave : [NSManagedObject] = []
+
+
+// MARK: - Funcs
 
 func calculateRowHeight (forImageInRow imageInRow: UIImage?) -> CGFloat {
     var imageWidth  = Int(240)
@@ -134,8 +149,48 @@ func updateDefaults() {
 
 func loadDefaults() {
     if let data = UserDefaults.standard.value(forKey:"favoritsURL") as? Data {
-        favoritURLs = ( try? PropertyListDecoder().decode(Array<favoritURL>.self, from: data) ) ?? []
+        favoritURLs = ( try? PropertyListDecoder().decode(Array<FavoritURL>.self, from: data) ) ?? []
     }
     print(favoritURLs)
 }
 
+
+func saveImageWithGeo(imageWithGeo : UIImage, latitude : Double, longitude : Double) {
+    
+    print("START SAVING")
+    guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
+    let managedContext = appDelegate.persistentContainer.viewContext
+    let entity = NSEntityDescription.entity(forEntityName: "ImgsWithGeo", in: managedContext)!
+    let item = NSManagedObject(entity: entity, insertInto: managedContext)
+    
+    item.setValue(latitude, forKey: "latitude")
+    item.setValue(longitude, forKey: "longitude")
+    
+        if let data = UIImageJPEGRepresentation(imageWithGeo, 1) as NSData? {
+            item.setValue(data, forKey: "image")
+        }
+    
+    do {
+        try managedContext.save()
+        itemsToSave.append(item)
+    } catch let error as NSError {
+        print("failed to save item", error)
+    }
+}
+
+
+func removeDuplicateInFavorits() {
+    for i in 0..<favoritURLs.count - 1 {
+        if favoritURLs[i].smallImageURL == favoritURLs[favoritURLs.count-1].smallImageURL{
+            favoritURLs.remove(at: i)
+            break
+        }
+    }
+}
+
+
+func updateCurrentImgWithGeo (image: UIImage, latitude: Double, longitude: Double) {
+    currentImageWithGeo.image = image
+    currentImageWithGeo.coordinate.latitude = latitude
+    currentImageWithGeo.coordinate.longitude = longitude
+}

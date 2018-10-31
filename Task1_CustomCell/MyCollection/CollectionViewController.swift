@@ -7,7 +7,8 @@
 //
 
 import UIKit
-
+import Photos
+import CoreData
 
 class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIDropInteractionDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -22,6 +23,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     let barButtonItemSwitch = UISwitch()
     
     static var cachedImages = [URL : UIImage]()
+    var imagesWithGeoArray : [ImageWithGeolocation] = []
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -57,6 +59,9 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        updateSelfView()
+    }
     
 //MARK: CollectionView methods
     
@@ -166,21 +171,19 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         if let _ = indexPath {
             collectionView.deselectItem(at: indexPath!, animated: true)
             if let index = indexPath?.row {
-                let urlSet = favoritURL(smallImageURL: photoURLs[index], largeImageURL: largePhotoURLs[index])
-                favoritURLs.append(urlSet)
-                self.favoritTabBarItem.isEnabled = true
                 
+                let urlSet = FavoritURL(smallImageURL: photoURLs[index], largeImageURL: largePhotoURLs[index])
+                favoritURLs.append(urlSet)
+                
+                self.favoritTabBarItem.isEnabled = true
                 UIView.animate(withDuration: 1.2) {
                     self.favoritTabBarItem.isEnabled = false
                 }
             }
         }
-        for i in 0..<favoritURLs.count - 1 {
-            if favoritURLs[i].smallImageURL == favoritURLs[favoritURLs.count-1].smallImageURL{
-                favoritURLs.remove(at: i)
-                break
-            }
-        }
+        
+        removeDuplicateInFavorits()
+        
     }
     
     
@@ -208,20 +211,64 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
-        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
-        largeImageView.image = chosenImage
+       let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        if let URL = info[UIImagePickerControllerReferenceURL] as? URL {
+            let opts = PHFetchOptions()
+            opts.fetchLimit = 1
+            let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: opts)
+            let asset = assets[0]
+            
+            if let coordinate = asset.location?.coordinate {
+                updateCurrentImgWithGeo(image: chosenImage, latitude: coordinate.latitude, longitude: coordinate.longitude)
+            } else {
+                updateCurrentImgWithGeo(image: chosenImage, latitude: 0.0, longitude: 0.0)
+            }
+            
+        }
+        
         dismiss(animated:true, completion: nil)
+        
     }
+    
     
     func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
         dismiss(animated: true, completion: nil)
     }
     
     
+    // MARK: - Save to Core Data storage
+    
+    @IBAction func saveToCoreDataStorageAction(_ sender: UIButton) {
+        
+        let allertController = UIAlertController(title: "Adding new ImgWithGeo", message: "Add to Storage?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        let saveAction = UIAlertAction(title: "Add", style: .default) { [] action in
+            let latitude = Double(currentImageWithGeo.coordinate.latitude)
+            let longitude = Double(currentImageWithGeo.coordinate.longitude)
+            let imageWithGeo = currentImageWithGeo.image
+            
+            saveImageWithGeo(imageWithGeo: imageWithGeo, latitude: latitude, longitude: longitude)
+        }
+        
+        allertController.addAction(saveAction)
+        allertController.addAction(cancelAction)
+        present(allertController, animated: true, completion: nil)
+        
+    }
+    
+    
+    private func updateSelfView () {
+        self.largeImageView.image = currentImageWithGeo.image
+        self.labelForURL.text = "Location:  Lat \(currentImageWithGeo.coordinate.latitude) Long \(currentImageWithGeo.coordinate.longitude)"
+    }
+    
+    
 }
 
 
-//MARK: Extension for DragNDrop methods
+// MARK: Extension for DragNDrop methods
 
 extension CollectionViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
@@ -260,7 +307,8 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
             if interaction.view == self.largeImageView as UIView {
                 let urlContents = try? Data(contentsOf: nsurl.first! as URL)
                 if let imageData = urlContents {
-                    self.largeImageView.image = UIImage(data: imageData)
+                    updateCurrentImgWithGeo(image: UIImage(data: imageData)!, latitude: 0.0, longitude: 0.0)
+                    self.updateSelfView()
                 }
             }
         }
