@@ -9,6 +9,7 @@
 import UIKit
 import Photos
 import CoreData
+import FlickrKit
 
 class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIDropInteractionDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
@@ -24,6 +25,8 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     
     static var cachedImages = [URL : UIImage]()
     var imagesWithGeoArray : [ImageWithGeolocation] = []
+    
+    var draggedIndex = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -214,15 +217,17 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
        let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
         
         if let URL = info[UIImagePickerControllerReferenceURL] as? URL {
+            
             let opts = PHFetchOptions()
             opts.fetchLimit = 1
             let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: opts)
             let asset = assets[0]
             
+            
             if let coordinate = asset.location?.coordinate {
-                updateCurrentImgWithGeo(image: chosenImage, latitude: coordinate.latitude, longitude: coordinate.longitude)
+                updateCurrentImgWithGeo(image: chosenImage, latitude: coordinate.latitude, longitude: coordinate.longitude, coordIsAvailable: true)
             } else {
-                updateCurrentImgWithGeo(image: chosenImage, latitude: 0.0, longitude: 0.0)
+                updateCurrentImgWithGeo(image: chosenImage, latitude: 0.0, longitude: 0.0, coordIsAvailable: false)
             }
             
         }
@@ -245,11 +250,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
         
         let saveAction = UIAlertAction(title: "Add", style: .default) { [] action in
-            let latitude = Double(currentImageWithGeo.coordinate.latitude)
-            let longitude = Double(currentImageWithGeo.coordinate.longitude)
-            let imageWithGeo = currentImageWithGeo.image
             
-            saveImageWithGeo(imageWithGeo: imageWithGeo, latitude: latitude, longitude: longitude)
+            
+            let latitude = currentImageWithGeo.coordinate.latitude
+            let longitude = currentImageWithGeo.coordinate.longitude
+            let imageWithGeo = currentImageWithGeo.image
+            let coordIsAvailable = currentImageWithGeo.coordIsAvailable
+            
+            saveImageWithGeo(imageWithGeo: imageWithGeo, latitude: latitude, longitude: longitude, coordIsAvailable: coordIsAvailable)
         }
         
         allertController.addAction(saveAction)
@@ -259,10 +267,18 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     }
     
     
-    private func updateSelfView () {
+    // MARK: - Update self view
+    
+    public func updateSelfView () {
         self.largeImageView.image = currentImageWithGeo.image
-        self.labelForURL.text = "Location:  Lat \(currentImageWithGeo.coordinate.latitude) Long \(currentImageWithGeo.coordinate.longitude)"
+        
+        var commentString = ""
+        if currentImageWithGeo.coordIsAvailable == false {
+            commentString = " (Not Found)"
+        }
+        self.labelForURL.text = "Location:  Lat \(currentImageWithGeo.coordinate.latitude) Long \(currentImageWithGeo.coordinate.longitude)" + commentString
     }
+    
     
     
 }
@@ -282,6 +298,8 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
         let url = data
         let itemProvider = NSItemProvider(object: url )
         let dragItem = UIDragItem(itemProvider: itemProvider)
+        
+        draggedIndex = indexPath.row
         
         return[dragItem]
     }
@@ -305,10 +323,20 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
             }
             
             if interaction.view == self.largeImageView as UIView {
-                let urlContents = try? Data(contentsOf: nsurl.first! as URL)
+                let url = nsurl.first! as URL
+                let urlContents = try? Data(contentsOf: url)
                 if let imageData = urlContents {
-                    updateCurrentImgWithGeo(image: UIImage(data: imageData)!, latitude: 0.0, longitude: 0.0)
-                    self.updateSelfView()
+                    
+                    //let coordinates = findGPSCoordinates(for: url)
+                    
+                    let photo_id = photo_ids[self.draggedIndex]
+                    
+                    currentImageWithGeo.image = UIImage(data: imageData)!
+                    self.largeImageView.image = currentImageWithGeo.image
+                    
+                    self.labelForURL.text = "Waiting for coordinates ..."
+                    findFlickrGPSCoordinates(for: photo_id, completion: {self.updateSelfView()})
+                    
                 }
             }
         }
@@ -316,6 +344,8 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
     
     
 }
+
+
 
 
 

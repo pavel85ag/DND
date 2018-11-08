@@ -45,7 +45,14 @@ class StoredImgWithGeoViewController: UIViewController, UITableViewDelegate, UIT
         
         let latitude = item.value(forKeyPath: "latitude") as! Double
         let longitude = item.value(forKeyPath: "longitude") as! Double
-        let str = "Lat: " + latitude.description + " Long: " + longitude.description
+        
+        var commentString = ""
+        let coordIsAvailabe = item.value(forKeyPath: "coordIsAvailable") as! Bool
+        if coordIsAvailabe == false {
+            commentString = " (Not Found)"
+        }
+        
+        let str = "Lat: " + latitude.description + " Long: " + longitude.description + commentString
         
         let imageData = item.value(forKeyPath: "image") as! NSData
         let image = UIImage(data: imageData as Data, scale: 1)
@@ -97,9 +104,10 @@ class StoredImgWithGeoViewController: UIViewController, UITableViewDelegate, UIT
             let longitude = item.value(forKeyPath: "longitude") as! Double
             
             let imageData = item.value(forKeyPath: "image") as! NSData
-            let image = UIImage(data: imageData as Data, scale: 1)
+            let image = UIImage(data: imageData as Data, scale: 1) ?? UIImage(named: "no_image")
+            let coordIsAvailable = item.value(forKeyPath: "coordIsAvailable") as! Bool
             
-            updateCurrentImgWithGeo(image: image!, latitude: latitude, longitude: longitude)
+            updateCurrentImgWithGeo(image: image!, latitude: latitude, longitude: longitude, coordIsAvailable: coordIsAvailable)
         
         }
         
