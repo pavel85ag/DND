@@ -94,7 +94,7 @@ func searchNewURLs (forText searchText: String,  completion: @escaping ()-> Void
 
     
 func loadImageForTable(url: URL, for indexPath: IndexPath, in tableView :UITableView) {
-    
+
     DispatchQueue.global().async {
         if let data = try? Data(contentsOf: url) {
             if let image = UIImage(data: data) {
@@ -173,7 +173,7 @@ func saveImageWithGeo(imageWithGeo : UIImage, latitude : Double, longitude : Dou
     
     print("START SAVING")
     guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-    let managedContext = appDelegate.persistentContainer.viewContext
+    let managedContext = persistentContainer.viewContext
     let entity = NSEntityDescription.entity(forEntityName: "ImgsWithGeo", in: managedContext)!
     let item = NSManagedObject(entity: entity, insertInto: managedContext)
     

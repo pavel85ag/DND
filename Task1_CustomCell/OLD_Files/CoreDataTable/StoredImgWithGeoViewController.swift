@@ -23,13 +23,14 @@ class StoredImgWithGeoViewController: UIViewController, UITableViewDelegate, UIT
         tableView.delegate = self
        
         guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-        let managedContext = appDelegate.persistentContainer.viewContext
+        let managedContext = persistentContainer.viewContext
         let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ImgsWithGeo")
         do {
             itemsToSave = try managedContext.fetch(fetchRequest)
         } catch let error as NSError {
             print("failed to fetch", error)
         }
+        
         
     }
     
@@ -68,7 +69,7 @@ class StoredImgWithGeoViewController: UIViewController, UITableViewDelegate, UIT
         if editingStyle == .delete {
             
             guard let appDelegate = UIApplication.shared.delegate as? AppDelegate else { return }
-            let managedContext = appDelegate.persistentContainer.viewContext
+            let managedContext = persistentContainer.viewContext
             let fetchRequest = NSFetchRequest<NSManagedObject>(entityName: "ImgsWithGeo")
             let objects = try! managedContext.fetch(fetchRequest)
             

@@ -9,6 +9,12 @@
 /* Begin PBXBuildFile section */
 		710287BE214A8934005F009C /* LogAndSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710287BD214A8934005F009C /* LogAndSearchViewController.swift */; };
 		710287C2214A9AB2005F009C /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710287C1214A9AB2005F009C /* FavouritesViewController.swift */; };
+		7146C0132194927000C2BA10 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0122194927000C2BA10 /* SearchViewController.swift */; };
+		7146C0152194993A00C2BA10 /* FavoritsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0142194993A00C2BA10 /* FavoritsViewController.swift */; };
+		7146C0172195C8AD00C2BA10 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0162195C8AD00C2BA10 /* ImageHelper.swift */; };
+		7146C01A2195D7E600C2BA10 /* ImagePropTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0182195D7E600C2BA10 /* ImagePropTableViewCell.swift */; };
+		7146C01B2195D7E600C2BA10 /* ImagePropTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7146C0192195D7E600C2BA10 /* ImagePropTableViewCell.xib */; };
+		7146C01D219DB13400C2BA10 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C01C219DB13400C2BA10 /* PhotoDetailViewController.swift */; };
 		717D94D02155106400642559 /* ImageHelperFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D94CF2155106400642559 /* ImageHelperFuncs.swift */; };
 		717D94D22155220600642559 /* LargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D94D12155220600642559 /* LargeImageViewController.swift */; };
 		717D94D6215BA78200642559 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D94D5215BA78200642559 /* CollectionViewController.swift */; };
@@ -16,7 +22,7 @@
 		71931EEC2170D89C000EF07D /* FavoritsTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71931EEB2170D89C000EF07D /* FavoritsTableViewCell.swift */; };
 		71931F712180BC64000EF07D /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71931F702180BC64000EF07D /* MapViewController.swift */; };
 		71931F742181D4B5000EF07D /* CustomClasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71931F732181D4B5000EF07D /* CustomClasses.swift */; };
-		71931F98218213A9000EF07D /* Task1_CustomCell.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71931F96218213A9000EF07D /* Task1_CustomCell.xcdatamodeld */; };
+		71931F98218213A9000EF07D /* SavedData.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 71931F96218213A9000EF07D /* SavedData.xcdatamodeld */; };
 		71931F9F21834E06000EF07D /* StoredImgWithGeoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71931F9E21834E06000EF07D /* StoredImgWithGeoViewController.swift */; };
 		71931FA121834ED4000EF07D /* ImgWithGeoTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71931FA021834ED4000EF07D /* ImgWithGeoTableViewCell.swift */; };
 		71C1BD2621417503005F069A /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71C1BD2521417503005F069A /* AppDelegate.swift */; };
@@ -33,6 +39,13 @@
 		0715BF366BAD9B141D5C41BB /* Pods-Task1_CustomCell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Task1_CustomCell.release.xcconfig"; path = "Pods/Target Support Files/Pods-Task1_CustomCell/Pods-Task1_CustomCell.release.xcconfig"; sourceTree = "<group>"; };
 		710287BD214A8934005F009C /* LogAndSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAndSearchViewController.swift; sourceTree = "<group>"; };
 		710287C1214A9AB2005F009C /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
+		7146C0122194927000C2BA10 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
+		7146C0142194993A00C2BA10 /* FavoritsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritsViewController.swift; sourceTree = "<group>"; };
+		7146C0162195C8AD00C2BA10 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
+		7146C0182195D7E600C2BA10 /* ImagePropTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePropTableViewCell.swift; sourceTree = "<group>"; };
+		7146C0192195D7E600C2BA10 /* ImagePropTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePropTableViewCell.xib; sourceTree = "<group>"; };
+		7146C01C219DB13400C2BA10 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
+		7146C02B21A43E8F00C2BA10 /* OLD.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = OLD.storyboard; path = "/Users/pratushnyi/Desktop/DND Editing 3/Task1_CustomCell/OLD.storyboard"; sourceTree = "<absolute>"; };
 		717D94CF2155106400642559 /* ImageHelperFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelperFuncs.swift; sourceTree = "<group>"; };
 		717D94D12155220600642559 /* LargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeImageViewController.swift; sourceTree = "<group>"; };
 		717D94D5215BA78200642559 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -74,6 +87,40 @@
 				AFDD2D2B49945606D6F69776 /* Pods_Task1_CustomCell.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		7146C02021A3236700C2BA10 /* OLD_Files */ = {
+			isa = PBXGroup;
+			children = (
+				7146C02B21A43E8F00C2BA10 /* OLD.storyboard */,
+				710287BD214A8934005F009C /* LogAndSearchViewController.swift */,
+				71931F9B2183244D000EF07D /* CoreDataTable */,
+				71931EE92170BCD9000EF07D /* Favorites */,
+				71931EE72170BC8C000EF07D /* MyCollection */,
+				71931EE52170BB60000EF07D /* MyTable */,
+				71931EEA2170BDAC000EF07D /* Funcs and Classes */,
+			);
+			path = OLD_Files;
+			sourceTree = "<group>";
+		};
+		7146C02121A3243E00C2BA10 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				7146C01C219DB13400C2BA10 /* PhotoDetailViewController.swift */,
+				7146C0142194993A00C2BA10 /* FavoritsViewController.swift */,
+				7146C0122194927000C2BA10 /* SearchViewController.swift */,
+				71931F702180BC64000EF07D /* MapViewController.swift */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		7146C02221A3245400C2BA10 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				7146C0182195D7E600C2BA10 /* ImagePropTableViewCell.swift */,
+				7146C0192195D7E600C2BA10 /* ImagePropTableViewCell.xib */,
+			);
+			path = Cells;
 			sourceTree = "<group>";
 		};
 		71931EE4216F831E000EF07D /* SupportingFiles */ = {
@@ -135,17 +182,8 @@
 			isa = PBXGroup;
 			children = (
 				717D94CF2155106400642559 /* ImageHelperFuncs.swift */,
-				71931F732181D4B5000EF07D /* CustomClasses.swift */,
 			);
 			path = "Funcs and Classes";
-			sourceTree = "<group>";
-		};
-		71931F722181D2CF000EF07D /* Map */ = {
-			isa = PBXGroup;
-			children = (
-				71931F702180BC64000EF07D /* MapViewController.swift */,
-			);
-			path = Map;
 			sourceTree = "<group>";
 		};
 		71931F9B2183244D000EF07D /* CoreDataTable */ = {
@@ -178,17 +216,15 @@
 		71C1BD2421417503005F069A /* Task1_CustomCell */ = {
 			isa = PBXGroup;
 			children = (
-				71C1BD3121417504005F069A /* Info.plist */,
-				71931F96218213A9000EF07D /* Task1_CustomCell.xcdatamodeld */,
-				710287BD214A8934005F009C /* LogAndSearchViewController.swift */,
-				71C1BD2921417503005F069A /* Main.storyboard */,
-				71931F9B2183244D000EF07D /* CoreDataTable */,
-				71931F722181D2CF000EF07D /* Map */,
-				71931EE92170BCD9000EF07D /* Favorites */,
-				71931EE72170BC8C000EF07D /* MyCollection */,
-				71931EE52170BB60000EF07D /* MyTable */,
-				71931EEA2170BDAC000EF07D /* Funcs and Classes */,
 				71931EE4216F831E000EF07D /* SupportingFiles */,
+				71C1BD3121417504005F069A /* Info.plist */,
+				71931F96218213A9000EF07D /* SavedData.xcdatamodeld */,
+				71C1BD2921417503005F069A /* Main.storyboard */,
+				7146C02121A3243E00C2BA10 /* ViewControllers */,
+				7146C02221A3245400C2BA10 /* Cells */,
+				7146C0162195C8AD00C2BA10 /* ImageHelper.swift */,
+				71931F732181D4B5000EF07D /* CustomClasses.swift */,
+				7146C02021A3236700C2BA10 /* OLD_Files */,
 			);
 			path = Task1_CustomCell;
 			sourceTree = "<group>";
@@ -263,6 +299,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				71C1BD3021417504005F069A /* LaunchScreen.storyboard in Resources */,
+				7146C01B2195D7E600C2BA10 /* ImagePropTableViewCell.xib in Resources */,
 				71C1BD3A2141754E005F069A /* MyTableViewCell.xib in Resources */,
 				71C1BD2D21417504005F069A /* Assets.xcassets in Resources */,
 				71C1BD2B21417503005F069A /* Main.storyboard in Resources */,
@@ -317,7 +354,8 @@
 			files = (
 				71931F712180BC64000EF07D /* MapViewController.swift in Sources */,
 				71931F9F21834E06000EF07D /* StoredImgWithGeoViewController.swift in Sources */,
-				71931F98218213A9000EF07D /* Task1_CustomCell.xcdatamodeld in Sources */,
+				7146C01A2195D7E600C2BA10 /* ImagePropTableViewCell.swift in Sources */,
+				71931F98218213A9000EF07D /* SavedData.xcdatamodeld in Sources */,
 				717D94D8215BB12F00642559 /* CollectionViewCell.swift in Sources */,
 				717D94D6215BA78200642559 /* CollectionViewController.swift in Sources */,
 				71931F742181D4B5000EF07D /* CustomClasses.swift in Sources */,
@@ -325,10 +363,14 @@
 				717D94D02155106400642559 /* ImageHelperFuncs.swift in Sources */,
 				71C1BD2621417503005F069A /* AppDelegate.swift in Sources */,
 				71931EEC2170D89C000EF07D /* FavoritsTableViewCell.swift in Sources */,
+				7146C0132194927000C2BA10 /* SearchViewController.swift in Sources */,
+				7146C0172195C8AD00C2BA10 /* ImageHelper.swift in Sources */,
+				7146C0152194993A00C2BA10 /* FavoritsViewController.swift in Sources */,
 				710287BE214A8934005F009C /* LogAndSearchViewController.swift in Sources */,
 				71C1BD392141754E005F069A /* MyTableViewCell.swift in Sources */,
 				717D94D22155220600642559 /* LargeImageViewController.swift in Sources */,
 				710287C2214A9AB2005F009C /* FavouritesViewController.swift in Sources */,
+				7146C01D219DB13400C2BA10 /* PhotoDetailViewController.swift in Sources */,
 				71931FA121834ED4000EF07D /* ImgWithGeoTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -531,13 +573,13 @@
 /* End XCConfigurationList section */
 
 /* Begin XCVersionGroup section */
-		71931F96218213A9000EF07D /* Task1_CustomCell.xcdatamodeld */ = {
+		71931F96218213A9000EF07D /* SavedData.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
 				71931F97218213A9000EF07D /* Task1_CustomCell.xcdatamodel */,
 			);
 			currentVersion = 71931F97218213A9000EF07D /* Task1_CustomCell.xcdatamodel */;
-			path = Task1_CustomCell.xcdatamodeld;
+			path = SavedData.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
 		};
