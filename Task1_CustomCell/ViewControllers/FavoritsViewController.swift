@@ -8,12 +8,15 @@
 
 import UIKit
 import CoreData
+import QuartzCore
 
 class FavoritsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     
     @IBOutlet weak var tableView: UITableView!
+    
     static var favoritsPhotos = [PhotoUrlAndProperties]()
+    var didAnimateCell:[NSIndexPath: Bool] = [:]
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -91,6 +94,7 @@ class FavoritsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentPhotoWithProp = FavoritsViewController.favoritsPhotos[FavoritsViewController.favoritsPhotos.count - indexPath.row - 1]
+        
     }
    
 

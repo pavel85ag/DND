@@ -77,7 +77,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
             sender.favoritsButton.isEnabled = false
             let name = ""
             addToFavoritsAndSave(index: indexOfTappedCell, name: name)
-            
+            TipInCellAnimator.animate(cell: sender)
         }
     }
     
