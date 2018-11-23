@@ -28,6 +28,8 @@ class LogAndSearchViewController: UIViewController, UITextFieldDelegate {
         
         searchTextField.delegate = self
         
+        searchSwitch.isOn = true
+        
         NotificationCenter.default.addObserver(self, selector: #selector(updateLayuot), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(updateLayuot), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
     }

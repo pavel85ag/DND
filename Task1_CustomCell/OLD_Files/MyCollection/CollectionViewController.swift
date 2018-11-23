@@ -7,9 +7,11 @@
 //
 
 import UIKit
+import Photos
+import CoreData
+import FlickrKit
 
-
-class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIDropInteractionDelegate, UIGestureRecognizerDelegate {
+class CollectionViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout, UIScrollViewDelegate, UIDropInteractionDelegate, UIGestureRecognizerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     
     @IBOutlet weak var largeImageView: UIImageView!
@@ -17,10 +19,14 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
     @IBOutlet weak var collectionView: UICollectionView!
     @IBOutlet weak var favoritTabBarItem: UITabBarItem!
     
+    let picker = UIImagePickerController()
     lazy var rotationCounter = Float(1000)
     let barButtonItemSwitch = UISwitch()
     
     static var cachedImages = [URL : UIImage]()
+    var imagesWithGeoArray : [ImageWithGeolocation] = []
+    
+    var draggedIndex = Int()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -52,8 +58,13 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         view.addGestureRecognizer(dTapGesture)
         dTapGesture.delegate = self
         
+        picker.delegate = self
+        
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        updateSelfView()
+    }
     
 //MARK: CollectionView methods
     
@@ -163,27 +174,117 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
         if let _ = indexPath {
             collectionView.deselectItem(at: indexPath!, animated: true)
             if let index = indexPath?.row {
-                let urlSet = favoritURL(smallImageURL: photoURLs[index], largeImageURL: largePhotoURLs[index])
-                favoritURLs.append(urlSet)
-                self.favoritTabBarItem.isEnabled = true
                 
+                let urlSet = FavoritURL(smallImageURL: photoURLs[index], largeImageURL: largePhotoURLs[index])
+                favoritURLs.append(urlSet)
+                
+                self.favoritTabBarItem.isEnabled = true
                 UIView.animate(withDuration: 1.2) {
                     self.favoritTabBarItem.isEnabled = false
                 }
             }
         }
-        for i in 0..<favoritURLs.count - 1 {
-            if favoritURLs[i].smallImageURL == favoritURLs[favoritURLs.count-1].smallImageURL{
-                favoritURLs.remove(at: i)
-                break
-            }
+        
+        removeDuplicateInFavorits()
+        
+    }
+    
+    
+    //MARK: Adding to Library/loading from library
+    
+    
+    @IBAction func saveToLibrary(_ sender: Any) {
+        if let image = self.largeImageView.image {
+            
+            let alert = UIAlertController(title: "Saved", message: "Image is saved to library", preferredStyle: .alert)
+            let okAction = UIAlertAction(title: "Ok", style: .default, handler: nil)
+            alert.addAction(okAction)
+            self.present(alert, animated: true)
+            UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
         }
     }
+    
+    
+    @IBAction func openLibrary(_ sender: Any) {
+        picker.allowsEditing = false
+        picker.sourceType = .photoLibrary
+        picker.mediaTypes = UIImagePickerController.availableMediaTypes(for: .photoLibrary)!
+        present(picker, animated: true, completion: nil)
+    }
+    
+    
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : Any]) {
+       let chosenImage = info[UIImagePickerControllerOriginalImage] as! UIImage
+        
+        if let URL = info[UIImagePickerControllerReferenceURL] as? URL {
+            
+            let opts = PHFetchOptions()
+            opts.fetchLimit = 1
+            let assets = PHAsset.fetchAssets(withALAssetURLs: [URL], options: opts)
+            let asset = assets[0]
+            
+            
+            if let coordinate = asset.location?.coordinate {
+                updateCurrentImgWithGeo(image: chosenImage, latitude: coordinate.latitude, longitude: coordinate.longitude, coordIsAvailable: true)
+            } else {
+                updateCurrentImgWithGeo(image: chosenImage, latitude: 0.0, longitude: 0.0, coordIsAvailable: false)
+            }
+            
+        }
+        
+        dismiss(animated:true, completion: nil)
+        
+    }
+    
+    
+    func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+        dismiss(animated: true, completion: nil)
+    }
+    
+    
+    // MARK: - Save to Core Data storage
+    
+    @IBAction func saveToCoreDataStorageAction(_ sender: UIButton) {
+        
+        let allertController = UIAlertController(title: "Adding new ImgWithGeo", message: "Add to Storage?", preferredStyle: .alert)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .destructive, handler: nil)
+        
+        let saveAction = UIAlertAction(title: "Add", style: .default) { [] action in
+            
+            
+            let latitude = currentImageWithGeo.coordinate.latitude
+            let longitude = currentImageWithGeo.coordinate.longitude
+            let imageWithGeo = currentImageWithGeo.image
+            let coordIsAvailable = currentImageWithGeo.coordIsAvailable
+            
+            saveImageWithGeo(imageWithGeo: imageWithGeo, latitude: latitude, longitude: longitude, coordIsAvailable: coordIsAvailable)
+        }
+        
+        allertController.addAction(saveAction)
+        allertController.addAction(cancelAction)
+        present(allertController, animated: true, completion: nil)
+        
+    }
+    
+    
+    // MARK: - Update self view
+    
+    public func updateSelfView () {
+        self.largeImageView.image = currentImageWithGeo.image
+        
+        var commentString = ""
+        if currentImageWithGeo.coordIsAvailable == false {
+            commentString = " (Not Found)"
+        }
+        self.labelForURL.text = "Location:  Lat \(currentImageWithGeo.coordinate.latitude) Long \(currentImageWithGeo.coordinate.longitude)" + commentString
+    }
+    
+    
     
 }
 
 
-//MARK: Extension for DragNDrop methods
+// MARK: Extension for DragNDrop methods
 
 extension CollectionViewController: UICollectionViewDragDelegate, UICollectionViewDropDelegate {
     
@@ -197,6 +298,8 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
         let url = data
         let itemProvider = NSItemProvider(object: url )
         let dragItem = UIDragItem(itemProvider: itemProvider)
+        
+        draggedIndex = indexPath.row
         
         return[dragItem]
     }
@@ -220,9 +323,20 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
             }
             
             if interaction.view == self.largeImageView as UIView {
-                let urlContents = try? Data(contentsOf: nsurl.first! as URL)
+                let url = nsurl.first! as URL
+                let urlContents = try? Data(contentsOf: url)
                 if let imageData = urlContents {
-                    self.largeImageView.image = UIImage(data: imageData)
+                    
+                    //let coordinates = findGPSCoordinates(for: url)
+                    
+                    let photo_id = photo_ids[self.draggedIndex]
+                    
+                    currentImageWithGeo.image = UIImage(data: imageData)!
+                    self.largeImageView.image = currentImageWithGeo.image
+                    
+                    self.labelForURL.text = "Waiting for coordinates ..."
+                    findFlickrGPSCoordinates(for: photo_id, completion: {self.updateSelfView()})
+                    
                 }
             }
         }
@@ -230,6 +344,8 @@ extension CollectionViewController: UICollectionViewDragDelegate, UICollectionVi
     
     
 }
+
+
 
 
 

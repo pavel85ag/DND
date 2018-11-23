@@ -30,7 +30,7 @@ class SmallImagesTableViewController: UITableViewController, MyTableViewCellButt
             image = cachedImage
             cell.optionalImage = image
         } else {
-            loadImageForTable(url: url, for: indexPath, in: tableView)
+            loadImageForSearchTable(url: url, for: indexPath, in: tableView)
         }
         
         return cell
