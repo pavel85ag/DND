@@ -41,6 +41,7 @@ class FavoritsViewController: UIViewController, UITableViewDelegate, UITableView
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ImageProp", for: indexPath) as! ImagePropTableViewCell
+        cell.backgroundColor = UIColor.clear
         cell.tag = indexPath.row
         let index = FavoritsViewController.favoritsPhotos.count - indexPath.row - 1
         

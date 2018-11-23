@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		710287BE214A8934005F009C /* LogAndSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710287BD214A8934005F009C /* LogAndSearchViewController.swift */; };
 		710287C2214A9AB2005F009C /* FavouritesViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 710287C1214A9AB2005F009C /* FavouritesViewController.swift */; };
+		71359A8521A594F200FD7F78 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 71359A8421A594F200FD7F78 /* TabBarController.swift */; };
 		7146C0132194927000C2BA10 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0122194927000C2BA10 /* SearchViewController.swift */; };
 		7146C0152194993A00C2BA10 /* FavoritsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0142194993A00C2BA10 /* FavoritsViewController.swift */; };
 		7146C0172195C8AD00C2BA10 /* ImageHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0162195C8AD00C2BA10 /* ImageHelper.swift */; };
@@ -39,6 +40,7 @@
 		0715BF366BAD9B141D5C41BB /* Pods-Task1_CustomCell.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Task1_CustomCell.release.xcconfig"; path = "Pods/Target Support Files/Pods-Task1_CustomCell/Pods-Task1_CustomCell.release.xcconfig"; sourceTree = "<group>"; };
 		710287BD214A8934005F009C /* LogAndSearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LogAndSearchViewController.swift; sourceTree = "<group>"; };
 		710287C1214A9AB2005F009C /* FavouritesViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavouritesViewController.swift; sourceTree = "<group>"; };
+		71359A8421A594F200FD7F78 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		7146C0122194927000C2BA10 /* SearchViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewController.swift; sourceTree = "<group>"; };
 		7146C0142194993A00C2BA10 /* FavoritsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoritsViewController.swift; sourceTree = "<group>"; };
 		7146C0162195C8AD00C2BA10 /* ImageHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelper.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				7146C0142194993A00C2BA10 /* FavoritsViewController.swift */,
 				7146C0122194927000C2BA10 /* SearchViewController.swift */,
 				71931F702180BC64000EF07D /* MapViewController.swift */,
+				71359A8421A594F200FD7F78 /* TabBarController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -370,6 +373,7 @@
 				71C1BD392141754E005F069A /* MyTableViewCell.swift in Sources */,
 				717D94D22155220600642559 /* LargeImageViewController.swift in Sources */,
 				710287C2214A9AB2005F009C /* FavouritesViewController.swift in Sources */,
+				71359A8521A594F200FD7F78 /* TabBarController.swift in Sources */,
 				7146C01D219DB13400C2BA10 /* PhotoDetailViewController.swift in Sources */,
 				71931FA121834ED4000EF07D /* ImgWithGeoTableViewCell.swift in Sources */,
 			);

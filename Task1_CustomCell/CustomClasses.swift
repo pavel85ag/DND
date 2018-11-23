@@ -41,11 +41,11 @@ class PinAnnotationView: MKAnnotationView {
         willSet {
             guard let pinAnnotation = newValue as? PinAnnotationImage else {return}
             canShowCallout = true
-            calloutOffset = CGPoint(x: -5, y: 5)
+            calloutOffset = CGPoint(x: 0, y: 0)
             //rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
             image = pinAnnotation.pinImage
-           
+            
         }
     }
 }

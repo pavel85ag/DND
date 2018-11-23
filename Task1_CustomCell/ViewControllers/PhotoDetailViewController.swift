@@ -26,6 +26,7 @@ class PhotoDetailViewController: UIViewController, UIGestureRecognizerDelegate {
         swipe.delegate = self
         
         view.addGestureRecognizer(swipe)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {

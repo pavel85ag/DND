@@ -12,6 +12,7 @@ import CoreData
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImagePropTableViewCellButtonDelegate, UITextFieldDelegate {
     
     
+    @IBOutlet weak var topView: UIView!
     @IBOutlet weak var addNameSegmentedControl: UISegmentedControl!
     @IBOutlet weak var searchTextField: UITextField!
     @IBOutlet weak var tableView: UITableView!
@@ -19,6 +20,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
         
         tableView.dataSource = self
         tableView.delegate = self
@@ -104,6 +106,7 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
         let cell = tableView.dequeueReusableCell(withIdentifier: "ImageProp", for: indexPath) as! ImagePropTableViewCell
         cell.tag = indexPath.row
         cell.delegateCellButtonTap = self
+        cell.backgroundColor = UIColor.clear
         
         loadImageForSearchTable(url: searchedPhotos[indexPath.row].smallPhotoURL!, for: indexPath, in: tableView)
         if searchedPhotos[indexPath.row].gpsAvailable == true {

@@ -201,6 +201,7 @@ class CollectionViewController: UIViewController, UICollectionViewDelegate, UICo
             alert.addAction(okAction)
             self.present(alert, animated: true)
             UIImageWriteToSavedPhotosAlbum(image, self, nil, nil)
+            
         }
     }
     
