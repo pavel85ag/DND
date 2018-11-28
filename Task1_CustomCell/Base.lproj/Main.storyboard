@@ -58,7 +58,19 @@
                                     <constraint firstAttribute="height" constant="44" id="ly1-xs-34E"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Item" id="wfQ-bF-2Cf"/>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="k5W-fQ-ti4"/>
+                                    <barButtonItem title="Open Lib" id="wfQ-bF-2Cf">
+                                        <connections>
+                                            <action selector="openLib:" destination="olQ-tl-OsZ" id="QNE-pb-kCx"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="g7C-0x-I6h"/>
+                                    <barButtonItem title="Save to Lib" id="DlS-dh-yt4">
+                                        <connections>
+                                            <action selector="saveToLib:" destination="olQ-tl-OsZ" id="7tJ-2q-sgX"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="nmu-J2-8ox"/>
                                 </items>
                             </toolbar>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="P9n-hG-aCR">
@@ -211,7 +223,11 @@
                                     <constraint firstAttribute="height" constant="44" id="Gb7-bT-JHa"/>
                                 </constraints>
                                 <items>
-                                    <barButtonItem title="Item" id="ufT-g2-VaZ"/>
+                                    <barButtonItem title="Remove All" id="ufT-g2-VaZ">
+                                        <connections>
+                                            <action selector="removeFavorits:" destination="Vgn-kN-cHA" id="gan-Bp-5fk"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Pdl-j6-H1L">
@@ -276,18 +292,18 @@
                                 <rect key="frame" x="0.0" y="20" width="375" height="150"/>
                                 <subviews>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="line" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="ncO-Hf-BYv">
-                                        <rect key="frame" x="55" y="119" width="243" height="21"/>
+                                        <rect key="frame" x="55" y="119" width="239" height="21"/>
                                         <color key="textColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                         <textInputTraits key="textInputTraits"/>
                                     </textField>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" hasAttributedTitle="YES" translatesAutoresizingMaskIntoConstraints="NO" id="fjF-fM-CJV">
-                                        <rect key="frame" x="307" y="119" width="48" height="21"/>
+                                        <rect key="frame" x="303" y="119.5" width="52" height="20.5"/>
                                         <state key="normal">
                                             <attributedString key="attributedTitle">
                                                 <fragment content="Search">
                                                     <attributes>
-                                                        <font key="NSFont" metaFont="system" size="15"/>
+                                                        <font key="NSFont" size="15" name="AmericanTypewriter-Bold"/>
                                                     </attributes>
                                                 </fragment>
                                             </attributedString>

@@ -197,10 +197,12 @@ func makePinFromStruct (_ item: PhotoUrlAndProperties) -> PinAnnotationImage {
     
     let title = item.photo_id
     let coordinate = CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude)
-    let image = loadImageForUrl(item.smallPhotoURL!, scale: 4)
-    let id = item.photo_id
+     let id = item.photo_id
     
-    let pinAnnotationImage = PinAnnotationImage(title: title, coordinate: coordinate, image: image, id: id)
+    let image = loadImageForUrl(item.smallPhotoURL!, scale: 4)
+    let resizedImage = image.resizeImage()
+    let flagImage = drawLineOnImage(size: CGSize(width: resizedImage.size.width, height: resizedImage.size.height), image: resizedImage, from: CGPoint(x: 0, y: 0), to: CGPoint(x: 0, y: resizedImage.size.height - 1))
+    let pinAnnotationImage = PinAnnotationImage(title: title, coordinate: coordinate, image: flagImage, id: id)
     
     return pinAnnotationImage
 }
@@ -247,3 +249,41 @@ func saveContext () {
     }
 }
 
+
+// MARK: - Prolong image for flag drawing
+
+extension UIImage {
+    func resizeImage() -> UIImage {
+        let size = self.size
+        
+        let newSize = CGSize(width: size.width, height: size.height + 15)
+        let rect = CGRect(x: 0, y: 0, width: size.width, height: size.height)
+        
+        UIGraphicsBeginImageContextWithOptions(newSize, false, 1.0)
+        self.draw(in: rect)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return newImage!
+    }
+}
+
+
+// MARK: - Flag stick drawing
+
+func drawLineOnImage(size: CGSize, image: UIImage, from: CGPoint, to: CGPoint) -> UIImage {
+    UIGraphicsBeginImageContext(size)
+    image.draw(at: CGPoint.zero)
+    guard let context = UIGraphicsGetCurrentContext() else { return UIImage() }
+    context.setLineWidth(5.0)
+    context.setStrokeColor(UIColor.blue.cgColor)
+    let startPoint = CGPoint(x: from.x, y: from.y)
+    let endPoint = CGPoint(x: to.x, y: to.y)
+    context.move(to: startPoint)
+    context.addLine(to: endPoint)
+    context.strokePath()
+    
+    guard let resultImage = UIGraphicsGetImageFromCurrentImageContext() else { return UIImage() }
+    UIGraphicsEndImageContext()
+    return resultImage
+}

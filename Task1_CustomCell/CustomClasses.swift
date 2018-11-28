@@ -47,7 +47,7 @@ class PinAnnotationView: MKAnnotationView {
             //rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
             image = pinAnnotation.pinImage
-            
+            centerOffset = CGPoint(x: (image?.size.width)!/2, y: -(image?.size.height)!/2)
         }
     }
 }

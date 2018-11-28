@@ -16,6 +16,7 @@
 		7146C01A2195D7E600C2BA10 /* ImagePropTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C0182195D7E600C2BA10 /* ImagePropTableViewCell.swift */; };
 		7146C01B2195D7E600C2BA10 /* ImagePropTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 7146C0192195D7E600C2BA10 /* ImagePropTableViewCell.xib */; };
 		7146C01D219DB13400C2BA10 /* PhotoDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7146C01C219DB13400C2BA10 /* PhotoDetailViewController.swift */; };
+		7154C95721AC599E0082DA29 /* OLD.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7154C95621AC599D0082DA29 /* OLD.storyboard */; };
 		717D94D02155106400642559 /* ImageHelperFuncs.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D94CF2155106400642559 /* ImageHelperFuncs.swift */; };
 		717D94D22155220600642559 /* LargeImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D94D12155220600642559 /* LargeImageViewController.swift */; };
 		717D94D6215BA78200642559 /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 717D94D5215BA78200642559 /* CollectionViewController.swift */; };
@@ -47,7 +48,7 @@
 		7146C0182195D7E600C2BA10 /* ImagePropTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImagePropTableViewCell.swift; sourceTree = "<group>"; };
 		7146C0192195D7E600C2BA10 /* ImagePropTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImagePropTableViewCell.xib; sourceTree = "<group>"; };
 		7146C01C219DB13400C2BA10 /* PhotoDetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoDetailViewController.swift; sourceTree = "<group>"; };
-		7146C02B21A43E8F00C2BA10 /* OLD.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = OLD.storyboard; path = "/Users/pratushnyi/Desktop/DND Editing 3/Task1_CustomCell/OLD.storyboard"; sourceTree = "<absolute>"; };
+		7154C95621AC599D0082DA29 /* OLD.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = OLD.storyboard; sourceTree = "<group>"; };
 		717D94CF2155106400642559 /* ImageHelperFuncs.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageHelperFuncs.swift; sourceTree = "<group>"; };
 		717D94D12155220600642559 /* LargeImageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LargeImageViewController.swift; sourceTree = "<group>"; };
 		717D94D5215BA78200642559 /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
@@ -94,7 +95,7 @@
 		7146C02021A3236700C2BA10 /* OLD_Files */ = {
 			isa = PBXGroup;
 			children = (
-				7146C02B21A43E8F00C2BA10 /* OLD.storyboard */,
+				7154C95621AC599D0082DA29 /* OLD.storyboard */,
 				710287BD214A8934005F009C /* LogAndSearchViewController.swift */,
 				71931F9B2183244D000EF07D /* CoreDataTable */,
 				71931EE92170BCD9000EF07D /* Favorites */,
@@ -303,6 +304,7 @@
 			files = (
 				71C1BD3021417504005F069A /* LaunchScreen.storyboard in Resources */,
 				7146C01B2195D7E600C2BA10 /* ImagePropTableViewCell.xib in Resources */,
+				7154C95721AC599E0082DA29 /* OLD.storyboard in Resources */,
 				71C1BD3A2141754E005F069A /* MyTableViewCell.xib in Resources */,
 				71C1BD2D21417504005F069A /* Assets.xcassets in Resources */,
 				71C1BD2B21417503005F069A /* Main.storyboard in Resources */,
@@ -521,6 +523,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A832D2PR89;
 				INFOPLIST_FILE = Task1_CustomCell/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -530,7 +533,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "onseo.Task1-CustomCell";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -540,6 +543,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = A832D2PR89;
 				INFOPLIST_FILE = Task1_CustomCell/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.4;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -549,7 +553,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "onseo.Task1-CustomCell";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 4.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

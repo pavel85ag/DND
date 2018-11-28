@@ -34,6 +34,31 @@ class FavoritsViewController: UIViewController, UITableViewDelegate, UITableView
     }
     
     
+    // MARK: Interface actions
+    
+    
+    @IBAction func removeFavorits(_ sender: Any) {
+        
+        let managedContext = persistentContainer.viewContext
+        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "ImageFullGeoProps")
+        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
+        do {
+            try managedContext.execute(deleteRequest)
+            try managedContext.save()
+            objectsToSave.removeAll()
+        } catch let error as NSError {
+            print("failed to save", error)
+        }
+        
+        favoritPhoto_idDict.removeAll()
+        FavoritsViewController.favoritsPhotos.removeAll()
+        
+        tableView.reloadData()
+    }
+    
+    
+    // MARK: TableView methods
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return FavoritsViewController.favoritsPhotos.count
     }
