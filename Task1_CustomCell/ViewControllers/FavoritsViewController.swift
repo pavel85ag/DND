@@ -10,6 +10,7 @@ import UIKit
 import CoreData
 import QuartzCore
 
+
 class FavoritsViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
     
     

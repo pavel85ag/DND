@@ -9,14 +9,17 @@
 import UIKit
 import MapKit
 
-class MapViewController: UIViewController{
+class MapViewController: UIViewController, CLLocationManagerDelegate {
 
     @IBOutlet weak var mapView: MKMapView!
+    
+    var locationManager = CLLocationManager()
     
     override func viewDidLoad() {
         super.viewDidLoad()
       
         mapView.register(PinAnnotationView.self, forAnnotationViewWithReuseIdentifier: MKMapViewDefaultAnnotationViewReuseIdentifier)
+        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -41,7 +44,28 @@ class MapViewController: UIViewController{
 
         }
     }
-
+    
+    
+    @IBAction func findMeOnMap(_ sender: UIBarButtonItem) {
+        if CLLocationManager.locationServicesEnabled() {
+            print("IS Enabled")
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.requestWhenInUseAuthorization()
+            locationManager.startUpdatingLocation()
+            print("Finished")
+        }
+    }
+    
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+        print("didUpdateLocations")
+        let locValue: CLLocationCoordinate2D = manager.location!.coordinate
+        let userLocation = locations.last
+        let viewRegion = MKCoordinateRegionMakeWithDistance((userLocation?.coordinate)!, 600, 600)
+        self.mapView.setRegion(viewRegion, animated: true)
+        
+    }
     
 }
 

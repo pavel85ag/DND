@@ -46,7 +46,7 @@ class PhotoDetailViewController: UIViewController, UIGestureRecognizerDelegate, 
         
         if loadingFromLib == false {
             if let url = currentPhotoWithProp.largePhotoURL {
-                imageView.image = loadImageForUrl(url, scale: 1.0)
+                imageView.image = loadImageForUrl(url, scale: 1.0, forMapPin: false)
                 nameLabel.text = currentPhotoWithProp.givenName
                 photoIDLabel.text = currentPhotoWithProp.photo_id
                 latitudeLabel.text = String(currentPhotoWithProp.latitude)

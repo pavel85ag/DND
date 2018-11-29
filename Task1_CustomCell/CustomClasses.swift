@@ -21,9 +21,9 @@ class PinAnnotationImage: NSObject, MKAnnotation {
     let title: String?
     let id: String
     let coordinate: CLLocationCoordinate2D
-    let pinImage: UIImage
+    let pinImage: UIImage?
     
-    init(title: String, coordinate: CLLocationCoordinate2D, image: UIImage, id: String) {
+    init(title: String, coordinate: CLLocationCoordinate2D, image: UIImage?, id: String) {
         self.title = title
         self.id = id
         self.coordinate = coordinate
@@ -46,7 +46,11 @@ class PinAnnotationView: MKAnnotationView {
             calloutOffset = CGPoint(x: 0, y: 0)
             //rightCalloutAccessoryView = UIButton(type: .detailDisclosure)
             
-            image = pinAnnotation.pinImage
+            if let gotImage = pinAnnotation.pinImage {
+                image = gotImage
+            }
+            
+            
             centerOffset = CGPoint(x: (image?.size.width)!/2, y: -(image?.size.height)!/2)
         }
     }
@@ -80,3 +84,5 @@ class TipInCellAnimator {
         
     }
 }
+
+

@@ -197,9 +197,11 @@ func makePinFromStruct (_ item: PhotoUrlAndProperties) -> PinAnnotationImage {
     
     let title = item.photo_id
     let coordinate = CLLocationCoordinate2D(latitude: item.latitude, longitude: item.longitude)
-     let id = item.photo_id
+    let id = item.photo_id
     
-    let image = loadImageForUrl(item.smallPhotoURL!, scale: 4)
+    let image = loadImageForUrl(item.smallPhotoURL!, scale: 4, forMapPin: true)
+    print(image)
+    
     let resizedImage = image.resizeImage()
     let flagImage = drawLineOnImage(size: CGSize(width: resizedImage.size.width, height: resizedImage.size.height), image: resizedImage, from: CGPoint(x: 0, y: 0), to: CGPoint(x: 0, y: resizedImage.size.height - 1))
     let pinAnnotationImage = PinAnnotationImage(title: title, coordinate: coordinate, image: flagImage, id: id)
@@ -208,8 +210,12 @@ func makePinFromStruct (_ item: PhotoUrlAndProperties) -> PinAnnotationImage {
 }
 
 
-func loadImageForUrl(_ url : URL, scale: CGFloat) -> UIImage {
+func loadImageForUrl(_ url : URL, scale: CGFloat, forMapPin: Bool) -> UIImage {
     var selfImage = UIImage()
+    if forMapPin == true {
+        selfImage = UIImage(named: "no_image_small")!
+    }
+    
     if let data = try? Data(contentsOf: url) {
         if let image = UIImage(data: data, scale: scale){
             selfImage = image

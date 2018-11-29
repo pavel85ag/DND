@@ -9,6 +9,7 @@
 import UIKit
 import CoreData
 
+
 class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ImagePropTableViewCellButtonDelegate, UITextFieldDelegate {
     
     
@@ -61,14 +62,17 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
                 
                 sender.favoritsButton.isSelected = false
                 sender.favoritsButton.isEnabled = false
+                               
                 let name = firstTextField.text!
                 addToFavoritsAndSave(index: indexOfTappedCell, name: name)
                 
             })
             let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.default, handler: {(action : UIAlertAction!) -> Void in })
-            alertController.addTextField { (textField : UITextField!) -> Void in textField.placeholder = "Enter image name"}
+            
+            alertController.addTextField { (textField : UITextField!) -> Void in textField.placeholder = "Enter image name" }
             alertController.addAction(saveAction)
             alertController.addAction(cancelAction)
+            
             self.present(alertController, animated: true, completion: nil)
             
         } else {
@@ -132,8 +136,8 @@ class SearchViewController: UIViewController, UITableViewDelegate, UITableViewDa
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         currentPhotoWithProp = searchedPhotos[indexPath.row]
     }
-    
-
- 
 
 }
+
+
+

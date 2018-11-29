@@ -20,15 +20,31 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" translatesAutoresizingMaskIntoConstraints="NO" id="7fw-C3-oQj">
-                                <rect key="frame" x="0.0" y="20" width="375" height="598"/>
+                                <rect key="frame" x="0.0" y="20" width="375" height="554"/>
                             </mapView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eTD-YT-ueg">
+                                <rect key="frame" x="0.0" y="574" width="375" height="44"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="Ypu-A4-I67"/>
+                                </constraints>
+                                <items>
+                                    <barButtonItem title="Find me" id="meU-br-ODT">
+                                        <connections>
+                                            <action selector="findMeOnMap:" destination="bcI-9q-HNH" id="pXc-dS-wOh"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <constraints>
-                            <constraint firstItem="7fw-C3-oQj" firstAttribute="top" secondItem="Vq7-RE-TBn" secondAttribute="top" id="Gjg-DW-6J7"/>
-                            <constraint firstItem="7fw-C3-oQj" firstAttribute="leading" secondItem="Vq7-RE-TBn" secondAttribute="leading" id="ZUH-7p-s7y"/>
-                            <constraint firstItem="Vq7-RE-TBn" firstAttribute="bottom" secondItem="7fw-C3-oQj" secondAttribute="bottom" id="koe-fF-wtU"/>
-                            <constraint firstItem="Vq7-RE-TBn" firstAttribute="trailing" secondItem="7fw-C3-oQj" secondAttribute="trailing" id="th8-Mi-Ifb"/>
+                            <constraint firstItem="eTD-YT-ueg" firstAttribute="top" secondItem="7fw-C3-oQj" secondAttribute="bottom" id="2V6-Id-KqI"/>
+                            <constraint firstItem="7fw-C3-oQj" firstAttribute="top" secondItem="Vq7-RE-TBn" secondAttribute="top" id="6Sr-m2-Gei"/>
+                            <constraint firstItem="eTD-YT-ueg" firstAttribute="bottom" secondItem="Vq7-RE-TBn" secondAttribute="bottom" id="7Y6-ji-ceP"/>
+                            <constraint firstItem="Vq7-RE-TBn" firstAttribute="trailing" secondItem="7fw-C3-oQj" secondAttribute="trailing" id="Xqs-NB-qE3"/>
+                            <constraint firstItem="eTD-YT-ueg" firstAttribute="leading" secondItem="Vq7-RE-TBn" secondAttribute="leading" id="ctE-QU-f6D"/>
+                            <constraint firstItem="7fw-C3-oQj" firstAttribute="leading" secondItem="Vq7-RE-TBn" secondAttribute="leading" id="nGK-tD-Ohw"/>
+                            <constraint firstItem="eTD-YT-ueg" firstAttribute="trailing" secondItem="Vq7-RE-TBn" secondAttribute="trailing" id="zc8-zb-dWB"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Vq7-RE-TBn"/>
                     </view>
@@ -39,7 +55,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7Xu-zM-A5O" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6401" y="446"/>
+            <point key="canvasLocation" x="6400.8000000000002" y="445.72713643178412"/>
         </scene>
         <!--Photo Detail-->
         <scene sceneID="xwM-br-LPw">
